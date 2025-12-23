@@ -14,7 +14,7 @@ $results = $prepare->fetchAll(PDO::FETCH_ASSOC); //実行結果を$resultsに代
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>ユーザー一覧</title>
+  <title>タスク一覧</title>
 </head>
 <body>
  

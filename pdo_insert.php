@@ -11,20 +11,21 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // trim 前後の空白を削除 "user01"
 $id = trim($_POST['id'] ?? '');
 // (string)強制的に文字型に変換
-$password = (string)($_POST['password']);
+$name = (string)($_POST['name']);
+$description = (string)($_POST['description']);
 
 // 入力チェック
-if ($id === '' || $password === '') {
-    exit('IDとPASSWORDを入力してください。');
+if ($id === '' || $name === '') {
+    exit('IDとタスク名を入力してください。');
 }
 
-$sql ="INSERT INTO users (id, password) VALUES (?, ?)";
+$sql ="INSERT INTO tasks (id, name, description, created_at) VALUES (?, ?, ?, NOW())";
 $stmt = $con->prepare($sql);
-$stmt->execute([$id, $password]);
+$stmt->execute([$id, $name, $description]);
 
 echo "登録成功：ID = " . htmlspecialchars($id, ENT_QUOTES, 'UTF-8');
 echo "<br>";
-echo '<a href="pdo_select_all.php"><button type="button">ユーザー一覧へ戻る</button></a>';
+echo '<a href="pdo_select_all.php"><button type="button">タスク一覧へ戻る</button></a>';
 
 
 

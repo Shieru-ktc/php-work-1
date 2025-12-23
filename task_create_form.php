@@ -15,11 +15,16 @@
 </div>
  
     <div>
-<label>PASSWORD：
-<input type="password" name="password" required>
+<label>Task Name：
+<input type="text" name="name" required>
 </label>
 </div>
  
+    <div>
+<label>Description:
+<textarea name="description"></textarea>
+</label>
+</div>
     <button type="submit">登録</button>
 </form>
 <br>
