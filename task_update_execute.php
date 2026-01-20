@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $id = trim($_POST['id'] ?? '');
 $name = (string)($_POST['name']);
 $description = (string)($_POST['description']);
+$completed = $_POST['completed'] == "1" ? 1 : 0;
 
 // 入力チェック
 if ($id === '' || $name === '') {
@@ -18,9 +19,10 @@ if ($id === '' || $name === '') {
 
 try {
     // 更新実行
-    $sql = "UPDATE tasks SET name = ?, description = ? WHERE id = ?";
+    $completed_at = $completed ? date('Y-m-d H:i:s') : null;
+    $sql = "UPDATE tasks SET name = ?, description = ?, completed_at = ? WHERE id = ?";
     $stmt = $con->prepare($sql);
-    $stmt->execute([$name, $description, $id]);
+    $stmt->execute([$name, $description, $completed_at, $id]);
 
     $safe_id = htmlspecialchars($id, ENT_QUOTES, 'UTF-8');
     if ($stmt->rowCount() > 0) {

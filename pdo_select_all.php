@@ -148,6 +148,22 @@ $results = $prepare->fetchAll(PDO::FETCH_ASSOC); //実行結果を$resultsに代
       align-items: center;
     }
 
+    .done {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #15803d;
+      font-weight: 700;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+
     .empty {
       margin-top: 20px;
       color: var(--muted);
@@ -183,11 +199,15 @@ $results = $prepare->fetchAll(PDO::FETCH_ASSOC); //実行結果を$resultsに代
             $task_id = htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8');
             $task_name = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
             $task_created_at = htmlspecialchars($row['created_at'], ENT_QUOTES, 'UTF-8');
+            $is_done = !empty($row['completed_at']);
             ?>
             <tr>
               <td><?= $task_id ?></td>
               <td><?= $task_created_at ?></td>
-              <td><?= $task_name ?></td>
+              <td class="<?= $is_done ? 'done' : '' ?>">
+                <?= $task_name ?>
+                <?php if ($is_done): ?><span class="badge">完了</span><?php endif; ?>
+              </td>
               <td>
                 <div class="actions">
                   <a class="btn btn-outline" href="task_edit_form.php?id=<?= urlencode($row['id']) ?>">変更</a>

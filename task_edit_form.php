@@ -87,6 +87,18 @@ if (!$task) {
             font-weight: 700;
         }
 
+        .row-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
         input,
         textarea {
             width: 100%;
@@ -164,6 +176,15 @@ if (!$task) {
                 <div>
                     <label for="description">説明</label>
                     <textarea id="description" name="description"><?= htmlspecialchars($task['description'], ENT_QUOTES, 'UTF-8') ?></textarea>
+                </div>
+
+                <div>
+                    <label>完了フラグ</label>
+                    <div class="row-inline">
+                        <?php $is_done = !empty($task['completed_at']); ?>
+                        <input class="checkbox" type="checkbox" id="completed" name="completed" value="1" <?= $is_done ? 'checked' : '' ?>>
+                        <label for="completed" style="margin:0;font-weight:600;">完了したらチェック</label>
+                    </div>
                 </div>
 
                 <div class="actions">

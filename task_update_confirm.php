@@ -2,6 +2,7 @@
 $id = $_POST['id'] ?? '';
 $name = $_POST['name'] ?? '';
 $description = $_POST['description'] ?? '';
+$completed = isset($_POST['completed']) ? 1 : 0;
 
 if ($id === '' || $name === '') {
     exit('入力が不足しています。');
@@ -150,12 +151,17 @@ if ($id === '' || $name === '') {
                     <div class="label">説明</div>
                     <div class="value"><?= nl2br(htmlspecialchars($description, ENT_QUOTES, 'UTF-8')) ?></div>
                 </div>
+                <div class="row">
+                    <div class="label">完了フラグ</div>
+                    <div class="value"><?= $completed ? '完了' : '未完了' ?></div>
+                </div>
             </div>
 
             <form method="post" action="task_update_execute.php">
                 <input type="hidden" name="id" value="<?= htmlspecialchars($id, ENT_QUOTES, 'UTF-8') ?>">
                 <input type="hidden" name="name" value="<?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>">
                 <input type="hidden" name="description" value="<?= htmlspecialchars($description, ENT_QUOTES, 'UTF-8') ?>">
+                <input type="hidden" name="completed" value="<?= $completed ?>">
                 <div class="actions">
                     <button class="btn btn-primary" type="submit">この内容で更新する</button>
                     <button class="btn btn-secondary" type="button" onclick="history.back()">修正する</button>
