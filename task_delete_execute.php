@@ -12,16 +12,16 @@ if ($id === '') {
 
 try {
     // 念のため存在確認（削除メッセージ用）
-    $stmt = $con->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt = $con->prepare("SELECT * FROM tasks WHERE id = ?");
     $stmt->execute([$id]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $task = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$user) {
-        exit('ユーザーが見つかりませんでした。');
+    if (!$task) {
+        exit('タスクが見つかりませんでした。');
     }
 
     // 削除実行
-    $stmt = $con->prepare("DELETE FROM users WHERE id = ?");
+    $stmt = $con->prepare("DELETE FROM tasks WHERE id = ?");
     $stmt->execute([$id]);
 
     // 削除できたか確認
@@ -33,7 +33,6 @@ try {
         echo "削除対象が見つかりませんでした。<br>";
         echo '<a href="pdo_select_all.php">一覧へ戻る</a>';
     }
-
 } catch (PDOException $e) {
     echo "削除に失敗しました。";
     // 開発中だけ詳細を見たいなら一時的に↓
